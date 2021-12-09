@@ -5,10 +5,10 @@ let res_x = 400, res_y = 200;
 let u_x, u_y; // unit amounts
 
 let balls = [
-	{x: 200, y: 100, r:50},
-	{x: 400, y: 200, r:50},
-	{x: 600, y: 300, r:50},
-	{x: 800, y: 400, r:50},
+	{x: 200, y: 100, r:50, v:10},
+	{x: 400, y: 200, r:50, v:5},
+	{x: 600, y: 300, r:50, v:2},
+	{x: 800, y: 400, r:50, v:1},
 ];
 
 // example: f(x, y) = (x - x1)^2 + (y - y1)^2 = 20^2
@@ -35,13 +35,14 @@ function setup() {
 	// max res
 	// u_x = 1;
 	// u_y = 1;
-	background(255);
 }
 
 // top left, top right, bottom left, bottom right
 let tl, tr, br, bl; // values for each square
 
 function draw() {
+	background(255);
+
 	stroke(0)
 	for (let x = 0; x < width; x += u_x) {
 		for (let y = 0; y < height; y += u_y) {
@@ -54,6 +55,10 @@ function draw() {
 
 			// if (frameCount % 1000 == 0) console.log(tl, tr, bl, br)
 		}
+	}
+	for (let ball of balls) {
+		ball.x = (ball.x + ball.v) % width;
+		ball.y = (ball.y + ball.v) % height;
 	}
 }
 
